@@ -1,0 +1,334 @@
+{
+  "dutstr": {
+    "root": "/home/lart/Datasets/Saliency/RGBSOD/DUTS/Train",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "pascal-s": {
+    "root": "/home/lart/Datasets/Saliency/RGBSOD/PASCAL-S",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "ecssd": {
+    "root": "/home/lart/Datasets/Saliency/RGBSOD/ECSSD",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "hku-is": {
+    "root": "/home/lart/Datasets/Saliency/RGBSOD/HKU-IS",
+    "image": {
+      "path": "Image",
+      "suffix": ".png"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "dutste": {
+    "root": "/home/lart/Datasets/Saliency/RGBSOD/DUTS/Test",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "dut-omron": {
+    "root": "/home/lart/Datasets/Saliency/RGBSOD/DUT-OMRON",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "socte": {
+    "root": "/home/lart/Datasets/Saliency/RGBSOD/SOC/Test",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "njudtrdmra_ori": {
+    "root": "/home/lart/Datasets/Saliency/RGBDSOD/NJUD_FULL",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "depth": {
+      "path": "Depth",
+      "suffix": ".png"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    },
+    "index_file": "/home/lart/Datasets/Saliency/RGBDSOD/njud_train_jw_name_list.lst"
+  },
+  "nlprtrdmra_ori": {
+    "root": "/home/lart/Datasets/Saliency/RGBDSOD/NLPR_FULL",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "depth": {
+      "path": "Depth",
+      "suffix": ".png"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    },
+    "index_file": "/home/lart/Datasets/Saliency/RGBDSOD/nlpr_train_jw_name_list.lst"
+  },
+  "dutrgbdtr": {
+    "root": "/home/lart/Datasets/Saliency/RGBDSOD/DUT-RGBD/Train",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "depth": {
+      "path": "Depth",
+      "suffix": ".png"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "dutrgbdte": {
+    "root": "/home/lart/Datasets/Saliency/RGBDSOD/DUT-RGBD/Test",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "depth": {
+      "path": "Depth",
+      "suffix": ".png"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "njudtedmra": {
+    "root": "/home/lart/Datasets/Saliency/RGBDSOD/NJUD_FULL",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "depth": {
+      "path": "Depth",
+      "suffix": ".png"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    },
+    "index_file": "/home/lart/Datasets/Saliency/RGBDSOD/njud_test_jw_name_list.lst"
+  },
+  "nlprtedmra": {
+    "root": "/home/lart/Datasets/Saliency/RGBDSOD/NLPR_FULL",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "depth": {
+      "path": "Depth",
+      "suffix": ".png"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    },
+    "index_file": "/home/lart/Datasets/Saliency/RGBDSOD/nlpr_test_jw_name_list.lst"
+  },
+  "lfsd": {
+    "root": "/home/lart/Datasets/Saliency/RGBDSOD/LFSD",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "depth": {
+      "path": "Depth",
+      "suffix": ".png"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "rgbd135": {
+    "root": "/home/lart/Datasets/Saliency/RGBDSOD/RGBD135",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "depth": {
+      "path": "Depth",
+      "suffix": ".png"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "sip": {
+    "root": "/home/lart/Datasets/Saliency/RGBDSOD/SIP",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "depth": {
+      "path": "Depth",
+      "suffix": ".png"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "ssd": {
+    "root": "/home/lart/Datasets/Saliency/RGBDSOD/SSD",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "depth": {
+      "path": "Depth",
+      "suffix": ".png"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "stereo1000": {
+    "root": "/home/lart/Datasets/Saliency/RGBDSOD/STEREO1000",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "depth": {
+      "path": "Depth",
+      "suffix": ".png"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "cod10k_camo_tr": {
+    "root": "/home/lart/Datasets/Saliency/COD/Train/COD10K_CAMO",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    },
+    "edge": {
+      "path": "Edge",
+      "suffix": ".png"
+    }
+  },
+  "camo_te": {
+    "root": "/home/lart/Datasets/Saliency/COD/Test/CAMO",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    },
+    "edge": {
+      "path": "Edge",
+      "suffix": ".png"
+    }
+  },
+  "chameleon": {
+    "root": "/home/lart/Datasets/Saliency/COD/Test/CHAMELEON",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    },
+    "edge": {
+      "path": "Edge",
+      "suffix": ".png"
+    }
+  },
+  "cpd1k_te": {
+    "root": "/home/lart/Datasets/Saliency/COD/CPD/CPD1K-TE",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    }
+  },
+  "cod10k_te": {
+    "root": "/home/lart/Datasets/Saliency/COD/Test/COD10K",
+    "image": {
+      "path": "Image",
+      "suffix": ".jpg"
+    },
+    "mask": {
+      "path": "Mask",
+      "suffix": ".png"
+    },
+    "edge": {
+      "path": "Edge",
+      "suffix": ".png"
+    }
+  },
+  "nc4k": {
+    "root": "/home/lart/Datasets/Saliency/COD/ClearnerNC4K",
+    "image": {
+      "path": "Imgs",
+      "suffix": ".jpg"
+    },
+    "mask": {
+      "path": "GT",
+      "suffix": ".png"
+    },
+    "instance": {
+      "path": "Instance",
+      "suffix": ".png"
+    }
+  }
+}
