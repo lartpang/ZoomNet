@@ -3,6 +3,7 @@ import timm
 import torch
 import torch.nn.functional as F
 from torch import nn
+from torch.utils.checkpoint import checkpoint
 
 from methods.module.base_model import BasicModelClass
 from methods.module.conv_block import ConvBNReLU
@@ -137,6 +138,36 @@ class HMU(nn.Module):
         return self.final_relu(out + x)
 
 
+def get_coef(iter_percentage, method):
+    if method == "linear":
+        milestones = (0.3, 0.7)
+        coef_range = (0, 1)
+        min_point, max_point = min(milestones), max(milestones)
+        min_coef, max_coef = min(coef_range), max(coef_range)
+        if iter_percentage < min_point:
+            ual_coef = min_coef
+        elif iter_percentage > max_point:
+            ual_coef = max_coef
+        else:
+            ratio = (max_coef - min_coef) / (max_point - min_point)
+            ual_coef = ratio * (iter_percentage - min_point)
+    elif method == "cos":
+        coef_range = (0, 1)
+        min_coef, max_coef = min(coef_range), max(coef_range)
+        normalized_coef = (1 - np.cos(iter_percentage * np.pi)) / 2
+        ual_coef = normalized_coef * (max_coef - min_coef) + min_coef
+    else:
+        ual_coef = 1.0
+    return ual_coef
+
+
+def cal_ual(seg_logits, seg_gts):
+    assert seg_logits.shape == seg_gts.shape, (seg_logits.shape, seg_gts.shape)
+    sigmoid_x = seg_logits.sigmoid()
+    loss_map = 1 - (2 * sigmoid_x - 1).abs().pow(2)
+    return loss_map.mean()
+
+
 @MODELS.register()
 class ZoomNet(BasicModelClass):
     def __init__(self):
@@ -204,34 +235,8 @@ class ZoomNet(BasicModelClass):
         )
         return output["seg"]
 
-    @staticmethod
-    def cal_smooth_sparse_loss(seg_logits, seg_gts):
-        assert seg_logits.shape == seg_gts.shape, (seg_logits.shape, seg_gts.shape)
-        sigmoid_x = seg_logits.sigmoid()
-        loss_map = 1 - (2 * sigmoid_x - 1).pow(2)
-        return loss_map.mean()
-
-    def cal_loss(self, all_preds: dict, gts: torch.Tensor, iter_percentage: float = 0):
-        method = "cos"
-        if method == "linear":
-            milestones = (0.3, 0.7)
-            coef_range = (0, 1)
-            min_point, max_point = min(milestones), max(milestones)
-            min_coef, max_coef = min(coef_range), max(coef_range)
-            if iter_percentage < min_point:
-                dsl_coef = min_coef
-            elif iter_percentage > max_point:
-                dsl_coef = max_coef
-            else:
-                ratio = (max_coef - min_coef) / (max_point - min_point)
-                dsl_coef = ratio * (iter_percentage - min_point)
-        elif method == "cos":
-            coef_range = (0, 1)
-            min_coef, max_coef = min(coef_range), max(coef_range)
-            normalized_coef = (1 - np.cos(iter_percentage * np.pi)) / 2
-            dsl_coef = normalized_coef * (max_coef - min_coef) + min_coef
-        else:
-            dsl_coef = 1.0
+    def cal_loss(self, all_preds: dict, gts: torch.Tensor, method="cos", iter_percentage: float = 0):
+        ual_coef = get_coef(iter_percentage, method)
 
         losses = []
         loss_str = []
@@ -243,10 +248,10 @@ class ZoomNet(BasicModelClass):
             losses.append(sod_loss)
             loss_str.append(f"{name}_BCE: {sod_loss.item():.5f}")
 
-            cel_loss = self.cal_smooth_sparse_loss(seg_logits=preds, seg_gts=resized_gts)
-            cel_loss *= dsl_coef
-            losses.append(cel_loss)
-            loss_str.append(f"{name}_DSL_{dsl_coef:.5f}: {cel_loss.item():.5f}")
+            ual_loss = cal_ual(seg_logits=preds, seg_gts=resized_gts)
+            ual_loss *= ual_coef
+            losses.append(ual_loss)
+            loss_str.append(f"{name}_UAL_{ual_coef:.5f}: {ual_loss.item():.5f}")
         return sum(losses), " ".join(loss_str)
 
     def get_grouped_params(self):
@@ -260,22 +265,48 @@ class ZoomNet(BasicModelClass):
                 param_groups.setdefault("retrained", []).append(param)
         return param_groups
 
-    @torch.no_grad()
-    def get_feature_maps(self, data):
-        l_scale = data["image1.5"]
-        m_scale = data["image1.0"]
-        s_scale = data["image0.5"]
 
-        l_trans_feats = self.encoder_translayer(l_scale)
-        m_trans_feats = self.encoder_translayer(m_scale)
-        s_trans_feats = self.encoder_translayer(s_scale)
+@MODELS.register()
+class ZoomNet_CK(ZoomNet):
+    def __init__(self):
+        super().__init__()
+        self.dummy = torch.ones(1, dtype=torch.float32, requires_grad=True)
 
-        end_m_trans_feats = []
-        for layer_id, (l, m, s, layer) in enumerate(
-            zip(l_trans_feats, m_trans_feats, s_trans_feats, self.merge_layers)
-        ):
-            siu_outs = layer(l=l, m=m, s=s)
-            end_m_trans_feats.append(siu_outs)
+    def encoder(self, x, dummy_arg=None):
+        assert dummy_arg is not None
+        x0, x1, x2, x3, x4 = self.shared_encoder(x)
+        return x0, x1, x2, x3, x4
 
-        seg_logits = self.seg_head(end_m_trans_feats)
-        return dict(seg=seg_logits)
+    def trans(self, x0, x1, x2, x3, x4):
+        x5, x4, x3, x2, x1 = self.translayer([x0, x1, x2, x3, x4])
+        return x5, x4, x3, x2, x1
+
+    def decoder(self, x5, x4, x3, x2, x1):
+        x = self.d5(x5)
+        x = cus_sample(x, mode="scale", factors=2)
+        x = self.d4(x + x4)
+        x = cus_sample(x, mode="scale", factors=2)
+        x = self.d3(x + x3)
+        x = cus_sample(x, mode="scale", factors=2)
+        x = self.d2(x + x2)
+        x = cus_sample(x, mode="scale", factors=2)
+        x = self.d1(x + x1)
+        x = cus_sample(x, mode="scale", factors=2)
+        logits = self.out_layer_01(self.out_layer_00(x))
+        return logits
+
+    def body(self, l_scale, m_scale, s_scale):
+        l_trans_feats = checkpoint(self.encoder, l_scale, self.dummy)
+        m_trans_feats = checkpoint(self.encoder, m_scale, self.dummy)
+        s_trans_feats = checkpoint(self.encoder, s_scale, self.dummy)
+        l_trans_feats = checkpoint(self.trans, *l_trans_feats)
+        m_trans_feats = checkpoint(self.trans, *m_trans_feats)
+        s_trans_feats = checkpoint(self.trans, *s_trans_feats)
+
+        feats = []
+        for layer_idx, (l, m, s) in enumerate(zip(l_trans_feats, m_trans_feats, s_trans_feats)):
+            siu_outs = checkpoint(self.merge_layers[layer_idx], l, m, s)
+            feats.append(siu_outs)
+
+        logits = checkpoint(self.decoder, *feats)
+        return dict(seg=logits)

@@ -32,7 +32,7 @@ def get_name_list_from_dir(path: str) -> list:
     return [os.path.splitext(x)[0] for x in os.listdir(path)]
 
 
-def get_datasets_info_with_keys(dataset_infos: dict, extra_keys: list) -> dict:
+def get_datasets_info_with_keys(dataset_infos: list, extra_keys: list) -> dict:
     """
     从给定的包含数据信息字典的列表中，依据给定的extra_kers和固定获取的key='image'来获取相应的路径
     Args:
@@ -85,7 +85,7 @@ def get_datasets_info_with_keys(dataset_infos: dict, extra_keys: list) -> dict:
                 path_collection[k].append(os.path.join(infos[k]["dir"], name + infos[k]["ext"]))
 
     path_collection = defaultdict(list)
-    for dataset_name, dataset_info in dataset_infos.items():
+    for dataset_name, dataset_info in dataset_infos:
         prev_num = len(path_collection["image"])
         _get_info(dataset_info=dataset_info, extra_keys=extra_keys, path_collection=path_collection)
         curr_num = len(path_collection["image"])

@@ -20,6 +20,7 @@ def parse_config():
     parser.add_argument("--batch-size", type=int)
     parser.add_argument("--load-from", type=str)
     parser.add_argument("--save-path", type=str)
+    parser.add_argument("--minmax-results", action="store_true")
     parser.add_argument("--info", type=str)
     args = parser.parse_args()
 
@@ -28,7 +29,7 @@ def parse_config():
     if args.model_name is not None:
         config.model_name = args.model_name
     if args.batch_size is not None:
-        config.train.batch_size = args.batch_size
+        config.test.batch_size = args.batch_size
     if args.load_from is not None:
         config.load_from = args.load_from
     if args.info is not None:
@@ -41,6 +42,7 @@ def parse_config():
             print(f"{args.save_path} does not exist, create it.")
             os.makedirs(args.save_path)
     config.save_path = args.save_path
+    config.test.to_minmax = args.minmax_results
 
     with open(args.datasets_info, encoding="utf-8", mode="r") as f:
         datasets_info = json.load(f)
@@ -110,7 +112,7 @@ def testing(model, cfg):
     pred_save_path = None
     for data_name, data_path, loader in pipeline.get_te_loader(cfg):
         if cfg.save_path:
-            pred_save_path = os.path.join(cfg.path.save, data_name)
+            pred_save_path = os.path.join(cfg.save_path, data_name)
             print(f"Results will be saved into {pred_save_path}")
         seg_results = test_once(
             model=model,

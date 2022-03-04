@@ -4,7 +4,7 @@
 # @GitHub  : https://github.com/lartpang
 
 import numpy as np
-from py_sod_metrics import Emeasure, Fmeasure, MAE, Smeasure, WeightedFmeasure
+from py_sod_metrics.sod_metrics import Emeasure, Fmeasure, MAE, Smeasure, WeightedFmeasure
 
 
 class CalTotalMetric(object):

@@ -1,1 +1,2 @@
-main.py --model-name=ZoomNet --config=configs/zoomnet/zoomnet.py --datasets-info ./configs/_base_/dataset/dataset_configs.json --info demo
+main.py --model-name=ZoomNet --config=configs/zoomnet/cod_zoomnet.py --datasets-info ./configs/_base_/dataset/dataset_configs.json
+main.py --model-name=ZoomNet_CK --config=configs/zoomnet/sod_zoomnet.py --datasets-info ./configs/_base_/dataset/dataset_configs.json

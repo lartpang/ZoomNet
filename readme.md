@@ -7,7 +7,9 @@
 
 ## Changelog
 
-* 2020/3/28: Initialize the repository.
+* 2022-03-04: 
+  - Initialize the repository.
+  - Add the model and configuration file for SOD.
 
 ## Usage
 

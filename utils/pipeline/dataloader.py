@@ -15,7 +15,7 @@ def get_tr_loader(cfg, shuffle=True, drop_last=True, pin_memory=True):
         registry_name="DATASETS",
         obj_name=cfg.datasets.train.dataset_type,
         obj_cfg=dict(
-            root=cfg.datasets.train.path,
+            root=[(name, path) for name, path in cfg.datasets.train.path.items()],
             shape=cfg.datasets.train.shape,
             extra_scales=cfg.train.ms.extra_scales if cfg.train.ms.enable else None,
             interp_cfg=cfg.datasets.train.get("interp_cfg", None),

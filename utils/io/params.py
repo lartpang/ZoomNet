@@ -6,6 +6,7 @@
 import os
 
 import torch
+from torch import nn
 
 
 def save_params(
@@ -111,7 +112,7 @@ def load_specific_params(load_path, names):
     return parmas_dict
 
 
-def load_weight(load_path, model):
+def load_weight(load_path, model: nn.Module):
     """
     从保存节点恢复模型
 
@@ -122,5 +123,11 @@ def load_weight(load_path, model):
     assert os.path.exists(load_path), load_path
 
     print(f"Loading weight '{load_path}'")
-    model.load_state_dict(torch.load(load_path, map_location="cpu"))
+    ckpt_dict = torch.load(load_path, map_location="cpu")
+    state_dict = model.state_dict()
+    ckpt_keys = ckpt_dict.keys()
+    state_keys = state_dict.keys()
+    print(f"Unique Keys in model: {sorted(set(state_keys).difference(ckpt_keys))}")
+    print(f"Unique Keys in ckpt: {sorted(set(ckpt_keys).difference(state_keys))}")
+    model.load_state_dict(ckpt_dict, strict=False)
     print(f"Loaded weight '{load_path}' " f"(only contains the net's weight)")
