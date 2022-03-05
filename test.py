@@ -96,10 +96,11 @@ def test_once(
             if clip_range is not None:
                 pred = ops.clip_to_normalize(pred, clip_range=clip_range)
 
+            if to_minmax:
+                pred = ops.minmax(pred)
+
             if save_path:  # 这里的save_path包含了数据集名字
-                ops.save_array_as_image(
-                    data_array=pred, save_name=os.path.basename(mask_path), save_dir=save_path, to_minmax=to_minmax
-                )
+                ops.save_array_as_image(data_array=pred, save_name=os.path.basename(mask_path), save_dir=save_path)
 
             pred = (pred * 255).astype(np.uint8)
             cal_total_seg_metrics.step(pred, mask_array, mask_path)
