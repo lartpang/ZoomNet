@@ -5,12 +5,22 @@
 ![GitHub issues](https://img.shields.io/github/issues/lartpang/ZoomNet?style=flat-square)
 ![GitHub stars](https://img.shields.io/github/stars/lartpang/ZoomNet?style=flat-square)
 
+```
+@inproceedings{ZoomNet-CVPR2022,
+	title     = {Zoom In and Out: A Mixed-scale Triplet Network for Camouflaged Object Detection},
+	author    = {Pang, Youwei and Zhao, Xiaoqi and Xiang, Tian-Zhu and Zhang, Lihe and Lu, Huchuan},
+	booktitle = CVPR,
+	year      = {2022}
+}
+```
+
 ## Changelog
 
 * 2022-03-05:
     - Update weights and results links.
     - Fixed some bugs.
     - Update dataset links.
+    - Update bibtex info.
 * 2022-03-04:
     - Initialize the repository.
     - Add the model and configuration file for SOD.
