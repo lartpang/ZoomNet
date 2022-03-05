@@ -7,9 +7,13 @@
 
 ## Changelog
 
-* 2022-03-04: 
-  - Initialize the repository.
-  - Add the model and configuration file for SOD.
+* 2022-03-05:
+    - Update weights and results links.
+    - Fixed some bugs.
+    - Update dataset links.
+* 2022-03-04:
+    - Initialize the repository.
+    - Add the model and configuration file for SOD.
 
 ## Usage
 
@@ -22,6 +26,12 @@ Some core dependencies:
 - [pysodmetrics](https://github.com/lartpang/PySODMetrics) == 1.2.4 # for evaluating results
 
 More details can be found in <./requirements.txt>
+
+### Datasets
+
+More details can be found at:
+- COD Datasets: <https://github.com/lartpang/awesome-segmentation-saliency-dataset#camouflaged-object-detection-cod>
+- SOD Datasets: <https://github.com/lartpang/awesome-segmentation-saliency-dataset#rgb-saliency>
 
 ### Training
 
@@ -48,6 +58,11 @@ If you want to launch multiple commands, you can use it like this:
 - `max_workers`: the maximum number of tasks to start simultaneously.
 
 ### Testing
+
+| Task | Weights                                                                                                                           | Results                                                                                                                                    |
+|------|-----------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| COD  | [GitHub Release Link](https://github.com/lartpang/ZoomNet/releases/download/v0.0.1/cod_zoomnet_r50_bs8_e40_2022-03-04.pth)        | [GitHub Release Link](https://github.com/lartpang/ZoomNet/releases/download/v0.0.1/CVPR-2022-ZoomNet-COD.zip) |
+| SOD  | [GitHub Release Link](https://github.com/lartpang/ZoomNet/releases/download/v0.0.1/sod_zoomnet_r50_bs22_e50_2022-03-04_fixed.pth) | [GitHub Release Link](https://github.com/lartpang/ZoomNet/releases/download/v0.0.1/CVPR-2022-ZoomNet-SOD.zip)    | 
 
 For ease of use, we create a `test.py` script and a use case in the form of a shell script `test.sh`.
 
