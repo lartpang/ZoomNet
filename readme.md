@@ -4,7 +4,8 @@
 ![LAST COMMIT](https://img.shields.io/github/last-commit/lartpang/ZoomNet?style=flat-square)
 ![ISSUES](https://img.shields.io/github/issues/lartpang/ZoomNet?style=flat-square)
 ![STARS](https://img.shields.io/github/stars/lartpang/ZoomNet?style=flat-square)
-[![PAPER](https://img.shields.io/badge/Paper-red?style=flat-square)](https://github.com/lartpang/ZoomNet/releases/download/v0.0.1/zoomnet-arxiv.pdf)
+[![ARXIV PAPER](https://img.shields.io/badge/Arxiv-Paper-red?style=flat-square)](https://arxiv.org/abs/2203.02688)
+[![ARXIV PAPER](https://img.shields.io/badge/Github-Paper-red?style=flat-square)](https://github.com/lartpang/ZoomNet/releases/download/v0.0.1/zoomnet-arxiv.pdf)
 
 ```
 @inproceedings{ZoomNet-CVPR2022,
@@ -17,6 +18,8 @@
 
 ## Changelog
 
+* 2022-03-08
+    - Add the link of arxiv version.
 * 2022-03-07
     - Add the link of paper.
 * 2022-03-05:
