@@ -18,6 +18,8 @@
 
 ## Changelog
 
+* 2022-3-16
+    - Add the link of the method prediction maps of Table 1 in our paper.
 * 2022-03-08
     - Add the link of arxiv version.
 * 2022-03-07
@@ -75,10 +77,10 @@ If you want to launch multiple commands, you can use it like this:
 
 ### Testing
 
-| Task | Weights                                                                                                                           | Results                                                                                                                                    |
-|------|-----------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| Task | Weights                                                                                                                           | Results                                                                                                       |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
 | COD  | [GitHub Release Link](https://github.com/lartpang/ZoomNet/releases/download/v0.0.1/cod_zoomnet_r50_bs8_e40_2022-03-04.pth)        | [GitHub Release Link](https://github.com/lartpang/ZoomNet/releases/download/v0.0.1/CVPR-2022-ZoomNet-COD.zip) |
-| SOD  | [GitHub Release Link](https://github.com/lartpang/ZoomNet/releases/download/v0.0.1/sod_zoomnet_r50_bs22_e50_2022-03-04_fixed.pth) | [GitHub Release Link](https://github.com/lartpang/ZoomNet/releases/download/v0.0.1/CVPR-2022-ZoomNet-SOD.zip)    | 
+| SOD  | [GitHub Release Link](https://github.com/lartpang/ZoomNet/releases/download/v0.0.1/sod_zoomnet_r50_bs22_e50_2022-03-04_fixed.pth) | [GitHub Release Link](https://github.com/lartpang/ZoomNet/releases/download/v0.0.1/CVPR-2022-ZoomNet-SOD.zip) |
 
 For ease of use, we create a `test.py` script and a use case in the form of a shell script `test.sh`.
 
@@ -89,6 +91,8 @@ $ ./test.sh 0  # on gpu 0
 
 ### Method Comparisons
 
+- The prediction maps corresponding to the methods in Table 1 of our paper:
+    - Baidu Pan: <https://pan.baidu.com/s/1dLMqa4tix1gdBN1uWrCPbQ> Code: yxy9
 - PySODEvalToolkit: A Python-based Evaluation Toolbox for Salient Object Detection and Camouflaged Object Detection
     - <https://github.com/lartpang/PySODEvalToolkit>
 
