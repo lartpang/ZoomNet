@@ -144,7 +144,8 @@ def to_device(data, device):
     :return:
     """
     if isinstance(data, (tuple, list)):
-        return to_device(data, device)
+        ctor = tuple if isinstance(data, tuple) else list
+        return ctor(to_device(d, device) for d in data)
     elif isinstance(data, dict):
         return {name: to_device(item, device) for name, item in data.items()}
     elif isinstance(data, torch.Tensor):
