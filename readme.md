@@ -16,6 +16,8 @@
 }
 ```
 
+**Extensions to the conference version can be found: <https://github.com/lartpang/ZoomNeXt>.**
+
 ## Changelog
 
 * 2022-3-16
